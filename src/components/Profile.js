@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import EditDetails from './EditDetails';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -87,7 +88,7 @@ class Profile extends Component {
 
 	handleLogout = () => {
 		this.props.logoutUser();
-	}
+	};
 	
 	render() {
 		const {
@@ -161,6 +162,7 @@ class Profile extends Component {
 								<KeyboardReturn color='primary' />
 							</IconButton>
 						</Tooltip>
+						<EditDetails />
 					</div>
 				</Paper>
 			) : (
