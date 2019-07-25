@@ -3,37 +3,44 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Opinion from '../components/Opinion';
 import Profile from '../components/Profile';
+import PropTypes from 'prop-types';
 
-
+import { connect } from 'react-redux';
+import { getOpinions } from '../redux/actions/dataActions';
 
 class home extends Component {
-    state = {
-        opinions: null
-    };
-    componentDidMount() {
-        axios.get('/opinions')
-            .then(res => {
-                this.setState({
-                    opinions: res.data
-                })
-            })
-            .catch(err => console.log(err));
-    }
-    render() {
-        let recentOpinionsMarkup = this.state.opinions ? (
-            this.state.opinions.map((opinion) => <Opinion key={opinion.opinionId} opinion={opinion} />)
-        ) : <p>Loading...</p>;
-        return (
-					<Grid container spacing={2}>
-						<Grid item sm={8} xs={12}>
-							{recentOpinionsMarkup}
-						</Grid>
-						<Grid item sm={4} xs={12}>
-                            <Profile />
-						</Grid>
-					</Grid>
-				);
-    }
+	componentDidMount() {
+		this.props.getOpinions();
+	}
+	render() {
+		const { opinions, loading } = this.props.data;
+		let recentOpinionsMarkup = !loading ? (
+			opinions.map(opinion => (
+				<Opinion key={opinion.opinionId} opinion={opinion} />
+			))
+		) : (
+			<p>Loading...</p>
+		);
+		return (
+			<Grid container spacing={2}>
+				<Grid item sm={8} xs={12}>
+					{recentOpinionsMarkup}
+				</Grid>
+				<Grid item sm={4} xs={12}>
+					<Profile />
+				</Grid>
+			</Grid>
+		);
+	}
 }
 
-export default home
+home.propTypes = {
+	getOpinions: PropTypes.func.isRequired,
+	data: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+	data: state.data
+});
+
+export default connect(mapStateToProps, { getOpinions })(home);

@@ -3,6 +3,8 @@ import {
 	SET_AUTHENTICATED,
 	SET_UNAUTHENTICATED,
 	LOADING_USER,
+	LIKE_OPINION,
+	UNLIKE_OPINION,
 	CLEAR_ERRORS,
 	SET_ERRORS,
 	LOADING_UI
@@ -34,8 +36,26 @@ export default function(state = initialState, action) {
 		case LOADING_USER:
 			return {
 				...state,
-				loading: true,
-			}
+				loading: true
+			};
+		case LIKE_OPINION:
+			return {
+				...state,
+				likes: [
+					...state.likes,
+					{
+						userHandle: state.credentials.handle,
+						opinionId: action.payload.opinionId
+					}
+				]
+			};
+		case UNLIKE_OPINION:
+			return {
+				...state,
+				likes: state.likes.filter(
+					like => like.opinionId !== action.payload.opinionId
+				)
+			};
 		default:
 			return state;
 	}
