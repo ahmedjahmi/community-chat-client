@@ -19,9 +19,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
-    button: {
-        float: 'right'
-    }
+	button: {
+		float: 'right'
+	},
+	textField: {
+		margin: '10px auto 10px auto'
+	},
 };
 
 class EditDetails extends Component {
