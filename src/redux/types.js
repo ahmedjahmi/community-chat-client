@@ -15,3 +15,5 @@ export const SET_OPINIONS = 'SET_OPINIONS';
 export const SET_OPINION = 'SET_OPINION';
 export const LIKE_OPINION = 'LIKE_OPINION';
 export const UNLIKE_OPINION = 'UNLIKE_OPINION';
+export const DELETE_OPINION = 'DELETE_OPINION';
+export const POST_OPINION = 'POST_OPINION';

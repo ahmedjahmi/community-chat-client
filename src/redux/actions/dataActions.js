@@ -1,8 +1,13 @@
 import {
 	SET_OPINIONS,
-	LOADING_DATA,
+	POST_OPINION,
 	LIKE_OPINION,
-	UNLIKE_OPINION
+	UNLIKE_OPINION,
+	DELETE_OPINION,
+	LOADING_DATA,
+	LOADING_UI,
+	SET_ERRORS,
+	CLEAR_ERRORS
 } from '../types';
 import axios from 'axios';
 
@@ -25,26 +30,60 @@ export const getOpinions = () => dispatch => {
 		});
 };
 
-// Like an Opinion
-export const likeOpinion = (opinionId) => dispatch =>{
-    axios.get(`/opinion/${opinionId}/like`)
-        .then(res => {
-            dispatch({
-                type: LIKE_OPINION,
-                payload: res.data
-            })
-        })
-        .catch(err => console.log(err));
+// Post an Opinion
+export const postOpinion = (newOpinion) => (dispatch) => {
+	dispatch({ type: LOADING_UI});
+	axios.post('/opinion', newOpinion)
+		.then(res => {
+			dispatch({
+				type: POST_OPINION,
+				payload: res.data
+			});
+			dispatch({ type: CLEAR_ERRORS });
+		})
+		.catch(err => {
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data
+			})
+		})
 }
 
+// Like an Opinion
+export const likeOpinion = opinionId => dispatch => {
+	axios
+		.get(`/opinion/${opinionId}/like`)
+		.then(res => {
+			dispatch({
+				type: LIKE_OPINION,
+				payload: res.data
+			});
+		})
+		.catch(err => console.log(err));
+};
+
 // Unlike an Opinion
-export const unlikeOpinion = (opinionId) => dispatch =>{
-    axios.get(`/opinion/${opinionId}/unlike`)
-        .then(res => {
-            dispatch({
-                type: UNLIKE_OPINION,
-                payload: res.data
-            })
-        })
-        .catch(err => console.log(err));
+export const unlikeOpinion = opinionId => dispatch => {
+	axios
+		.get(`/opinion/${opinionId}/unlike`)
+		.then(res => {
+			dispatch({
+				type: UNLIKE_OPINION,
+				payload: res.data
+			});
+		})
+		.catch(err => console.log(err));
+};
+
+export const deleteOpinion = opinionId => dispatch => {
+	axios
+		.delete(`/opinion/${opinionId}`)
+		.then(res => {
+			dispatch({ type: DELETE_OPINION, payload: opinionId });
+		})
+		.catch(err => console.log(err));
+};
+
+export const clearErrors = () => dispatch => {
+	dispatch({ type: CLEAR_ERRORS });
 }

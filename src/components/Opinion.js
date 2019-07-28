@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
+import DeleteOpinion from './DeleteOpinion';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -21,9 +22,9 @@ import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-
 const styles = {
 	card: {
+		position: 'relative',
 		display: 'flex',
 		marginBottom: 20
 	},
@@ -68,7 +69,8 @@ class Opinion extends Component {
 				commentCount
 			},
 			user: {
-				authenticated
+				authenticated,
+				credentials: { handle }
 			}
 		} = this.props;
 		const likeButton = !authenticated ? (
@@ -86,6 +88,10 @@ class Opinion extends Component {
 				<FavoriteBorder color='primary' />
 			</MyButton>
 		);
+		const deleteButton =
+			authenticated && userHandle === handle ? (
+				<DeleteOpinion opinionId={opinionId} />
+			) : null;
 		return (
 			<Card className={classes.card}>
 				<CardMedia
@@ -102,6 +108,7 @@ class Opinion extends Component {
 					>
 						{userHandle}
 					</Typography>
+					{deleteButton}
 					<Typography variant='body2' color='textSecondary'>
 						{dayjs(createdAt).fromNow()}
 					</Typography>
