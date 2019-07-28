@@ -27,6 +27,11 @@ export default function(state = initialState, action) {
 				opinions: action.payload,
 				loading: false
 			};
+		case SET_OPINION:
+			return {
+				...state,
+				opinion: action.payload
+			}
 		case LIKE_OPINION:
 		case UNLIKE_OPINION:
 			let index = state.opinions.findIndex(

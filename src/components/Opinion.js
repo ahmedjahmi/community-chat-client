@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
 import DeleteOpinion from './DeleteOpinion';
+import OpinionDialog from './OpinionDialog';
 
 // Redux stuff
 import { connect } from 'react-redux';
@@ -119,6 +120,7 @@ class Opinion extends Component {
 						<ChatIcon color='primary' />
 					</MyButton>
 					<span>{commentCount} Comments</span>
+					<OpinionDialog opinionId={opinionId} userHandle={userHandle} />
 				</CardContent>
 			</Card>
 		);

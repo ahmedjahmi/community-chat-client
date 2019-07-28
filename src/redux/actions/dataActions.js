@@ -6,8 +6,10 @@ import {
 	DELETE_OPINION,
 	LOADING_DATA,
 	LOADING_UI,
+	STOP_LOADING_UI,
 	SET_ERRORS,
-	CLEAR_ERRORS
+	CLEAR_ERRORS,
+	SET_OPINION
 } from '../types';
 import axios from 'axios';
 
@@ -29,6 +31,20 @@ export const getOpinions = () => dispatch => {
 			});
 		});
 };
+
+// Get one single Opinion
+export const getOpinion = (opinionId) => dispatch => {
+	dispatch({type: LOADING_UI});
+	axios.get(`/opinion/${opinionId}`)
+		.then(res => {
+			dispatch({
+				type: SET_OPINION,
+				payload: res.data
+			});
+			dispatch({ type: STOP_LOADING_UI });
+		})
+		.catch(err => console.log(err));
+}
 
 // Post an Opinion
 export const postOpinion = (newOpinion) => (dispatch) => {

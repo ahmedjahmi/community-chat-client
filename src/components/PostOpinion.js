@@ -17,114 +17,121 @@ import { connect } from 'react-redux';
 import { postOpinion, clearErrors } from '../redux/actions/dataActions';
 
 const styles = {
-    submitButton: {
-        position: 'relative',
-        float: 'right',
-        marginTop: 10
-    },
-    progressSpinner: {
-        position: 'absolute'
-    },
-    closeButton: {
-        position: 'absolute',
-        left: '91%',
-        top: '6%'
-    }
-}
+	submitButton: {
+		position: 'relative',
+		float: 'right',
+		marginTop: 10
+	},
+	progressSpinner: {
+		position: 'absolute'
+	},
+	closeButton: {
+		position: 'absolute',
+		left: '91%',
+		top: '6%'
+	}
+};
 
 class PostOpinion extends Component {
 	state = {
 		open: false,
 		body: '',
 		errors: {}
-    };
-    
-    componentWillReceiveProps(nextProps){
-        if (nextProps.UI.errors) {
-            this.setState({
-                errors: nextProps.UI.errors
-            });
-        };
-        if(!nextProps.UI.errors && !nextProps.UI.loading) {
-            this.setState({
-                body: '',
-                open: false,
-                errors: {}
-        });
-        }
-    };
+	};
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.UI.errors) {
+			this.setState({
+				errors: nextProps.UI.errors
+			});
+		}
+		if (!nextProps.UI.errors && !nextProps.UI.loading) {
+			this.setState({
+				body: '',
+				open: false,
+				errors: {}
+			});
+		}
+	}
 
 	handleOpen = () => {
 		this.setState({ open: true });
 	};
 	handleClose = () => {
-        this.props.clearErrors();
+		this.props.clearErrors();
 		this.setState({ open: false, errors: {} });
-    };
+	};
 
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
-    }
+	handleChange = event => {
+		this.setState({ [event.target.name]: event.target.value });
+	};
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.postOpinion({ body: this.state.body});
-    }
-    
-    render() {
-        const {errors} = this.state;
-        const {classes, UI: { loading }} = this.props;
-        return (
-            <Fragment>
-                <MyButton onClick={this.handleOpen} tip='Post an Opinion!'>
-                    <AddIcon color='primary' />
-                </MyButton>
-                <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                fullWidth
-                maxWidth='sm'
-                >
-                    <MyButton tip='Close' onClick={this.handleClose} tipClassName={classes.closeButton}>
-                        <CloseIcon />
-                    </MyButton>
-                        <DialogTitle>Post a new opinion</DialogTitle>
-                        <DialogContent>
-                            <form onSubmit={this.handleSubmit}>
-                                <TextField
-                                name='body'
-                                type='text'
-                                label='Opinion'
-                                multiline
-                                rows='3'
-                                placeholder='Write your opinion here..'
-                                error={errors.body ? true : false}
-                                helperText={errors.body}
-                                className={classes.textField}
-                                onChange={this.handleChange}
-                                fullWidth
-                                />
-                                <Button
-                                    type='submit'
-                                    variant='contained'
-                                    color='primary'
-                                    className={classes.submitButton}
-                                    disabled={loading}
-                                    >
-                                        Submit
-                                        {loading && (
-                                            <CircularProgress
-                                            size={30}
-                                            className={classes.progressSpinner}
-                                        />
-                                        )}
-                                </Button>
-                            </form>
-                        </DialogContent>
-                </Dialog>
-            </Fragment>
-        )
-    }
+	handleSubmit = event => {
+		event.preventDefault();
+		this.props.postOpinion({ body: this.state.body });
+	};
+
+	render() {
+		const { errors } = this.state;
+		const {
+			classes,
+			UI: { loading }
+		} = this.props;
+		return (
+			<Fragment>
+				<MyButton onClick={this.handleOpen} tip='Post an Opinion!'>
+					<AddIcon color='primary' />
+				</MyButton>
+				<Dialog
+					open={this.state.open}
+					onClose={this.handleClose}
+					fullWidth
+					maxWidth='sm'
+				>
+					<MyButton
+						tip='Close'
+						onClick={this.handleClose}
+						tipClassName={classes.closeButton}
+					>
+						<CloseIcon />
+					</MyButton>
+					<DialogTitle>Post a new opinion</DialogTitle>
+					<DialogContent>
+						<form onSubmit={this.handleSubmit}>
+							<TextField
+								name='body'
+								type='text'
+								label='Opinion'
+								multiline
+								rows='3'
+								placeholder='Write your opinion here..'
+								error={errors.body ? true : false}
+								helperText={errors.body}
+								className={classes.textField}
+								onChange={this.handleChange}
+								fullWidth
+							/>
+							<Button
+								type='submit'
+								variant='contained'
+								color='primary'
+								className={classes.submitButton}
+								disabled={loading}
+							>
+								Submit
+								{loading && (
+									<CircularProgress
+										size={30}
+										className={classes.progressSpinner}
+									/>
+								)}
+							</Button>
+						</form>
+					</DialogContent>
+				</Dialog>
+			</Fragment>
+		);
+	}
 }
 
 PostOpinion.propTypes = {
@@ -133,8 +140,11 @@ PostOpinion.propTypes = {
 	UI: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-    UI: state.UI
-})
+const mapStateToProps = state => ({
+	UI: state.UI
+});
 
-export default connect(mapStateToProps, { postOpinion, clearErrors })(withStyles(styles)(PostOpinion));
+export default connect(
+	mapStateToProps,
+	{ postOpinion, clearErrors }
+)(withStyles(styles)(PostOpinion));
