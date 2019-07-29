@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
+import LikeButton from './LikeButton';
+import Comments from './Comments';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import LikeButton from './LikeButton';
-
 
 // mui stuff
 import Dialog from '@material-ui/core/Dialog';
@@ -21,13 +21,18 @@ import ChatIcon from '@material-ui/icons/Chat';
 
 // redux stuff
 import { connect } from 'react-redux';
-import { getOpinion } from '../redux/actions/dataActions';
+import { getOpinion } from '../../redux/actions/dataActions';
 
 const styles = {
 	invisibleSeparator: {
 		border: 'none',
 		margin: 4
-    },
+	},
+	visibleSeparator: {
+		width: '100%',
+		borderBottom: '1px solid rgba(0,0,0,0.1)',
+		marginBottom: 20
+	},
     profileImage: {
         maxWidth: 200,
         height: 200,
@@ -76,7 +81,8 @@ class OpinionDialog extends Component {
 				likeCount,
 				commentCount,
 				userImage,
-				userHandle
+				userHandle,
+				comments
 			},
 			UI: { loading }
 		} = this.props;
@@ -116,6 +122,8 @@ class OpinionDialog extends Component {
 					</MyButton>
 					<span>{commentCount} Comments</span>
 				</Grid>
+				<hr className={classes.visibleSeparator} />
+				<Comments comments={comments} />
 			</Grid>
 		);
 

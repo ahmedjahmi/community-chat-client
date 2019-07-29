@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 // redux
 import { connect } from 'react-redux';
-import { likeOpinion, unlikeOpinion } from '../redux/actions/dataActions';
+import { likeOpinion, unlikeOpinion } from '../../redux/actions/dataActions';
 
 export class LikeButton extends Component {
 	likedOpinion = () => {

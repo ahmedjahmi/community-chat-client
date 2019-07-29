@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Opinion from '../components/Opinion';
-import Profile from '../components/Profile';
 import PropTypes from 'prop-types';
+
+import Profile from '../components/profile/Profile';
+import Opinion from '../components/opinion/Opinion';
 
 import { connect } from 'react-redux';
 import { getOpinions } from '../redux/actions/dataActions';
