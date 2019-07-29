@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
 import DeleteOpinion from './DeleteOpinion';
 import OpinionDialog from './OpinionDialog';
+import LikeButton from './LikeButton';
 
 // Redux stuff
 import { connect } from 'react-redux';
-import { likeOpinion, unlikeOpinion } from '../redux/actions/dataActions';
+
 
 // Mui Stuff
 import Card from '@material-ui/core/Card';
@@ -20,8 +21,6 @@ import Typography from '@material-ui/core/Typography';
 
 // Icons
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const styles = {
 	card: {
@@ -39,23 +38,7 @@ const styles = {
 };
 
 class Opinion extends Component {
-	likedOpinion = () => {
-		if (
-			this.props.user.likes &&
-			this.props.user.likes.find(
-				like => like.opinionId === this.props.opinion.opinionId
-			)
-		)
-			return true;
-		else return false;
-	};
-
-	likeOpinion = () => {
-		this.props.likeOpinion(this.props.opinion.opinionId);
-	};
-	unlikeOpinion = () => {
-		this.props.unlikeOpinion(this.props.opinion.opinionId);
-	};
+	
 	render() {
 		dayjs.extend(relativeTime);
 		const {
@@ -74,21 +57,7 @@ class Opinion extends Component {
 				credentials: { handle }
 			}
 		} = this.props;
-		const likeButton = !authenticated ? (
-			<MyButton tip='Like'>
-				<Link to='/login'>
-					<FavoriteBorder color='primary' />
-				</Link>
-			</MyButton>
-		) : this.likedOpinion() ? (
-			<MyButton tip='Undo like' onClick={this.unlikeOpinion}>
-				<FavoriteIcon color='primary' />
-			</MyButton>
-		) : (
-			<MyButton tip='Like Opinion' onClick={this.likeOpinion}>
-				<FavoriteBorder color='primary' />
-			</MyButton>
-		);
+		
 		const deleteButton =
 			authenticated && userHandle === handle ? (
 				<DeleteOpinion opinionId={opinionId} />
@@ -114,7 +83,7 @@ class Opinion extends Component {
 						{dayjs(createdAt).fromNow()}
 					</Typography>
 					<Typography variant='body1'>{body}</Typography>
-					{likeButton}
+					<LikeButton opinionId={opinionId} />
 					<span>{likeCount} Likes</span>
 					<MyButton tip='Comments'>
 						<ChatIcon color='primary' />
@@ -128,8 +97,6 @@ class Opinion extends Component {
 }
 
 Opinion.propTypes = {
-	likeOpinion: PropTypes.func.isRequired,
-	unlikeOpinion: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired,
 	opinion: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired
@@ -139,12 +106,6 @@ const mapStateToProps = state => ({
 	user: state.user
 });
 
-const mapActionsToProps = {
-	likeOpinion,
-	unlikeOpinion
-};
-
 export default connect(
-	mapStateToProps,
-	mapActionsToProps
+	mapStateToProps
 )(withStyles(styles)(Opinion));

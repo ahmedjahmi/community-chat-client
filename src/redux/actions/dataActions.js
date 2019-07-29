@@ -27,7 +27,7 @@ export const getOpinions = () => dispatch => {
 		.catch(err => {
 			dispatch({
 				type: SET_OPINIONS,
-				payload: {}
+				payload: []
 			});
 		});
 };
@@ -94,7 +94,7 @@ export const unlikeOpinion = opinionId => dispatch => {
 export const deleteOpinion = opinionId => dispatch => {
 	axios
 		.delete(`/opinion/${opinionId}`)
-		.then(res => {
+		.then(() => {
 			dispatch({ type: DELETE_OPINION, payload: opinionId });
 		})
 		.catch(err => console.log(err));

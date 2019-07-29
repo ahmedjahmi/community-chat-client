@@ -4,11 +4,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../util/MyButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import LikeButton from './LikeButton';
+
 
 // mui stuff
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 // Icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 
 // redux stuff
 import { connect } from 'react-redux';
@@ -38,7 +40,16 @@ const styles = {
     closeButton: {
         position: 'absolute',
         left: '90%'
-    },
+	},
+	expandButton: {
+		position: 'absolute',
+		left: '90%'
+	},
+	spinnerDiv: {
+		textAlign: 'center',
+		marginTop: 50,
+		marginBottom: 50
+	}
 };
 
 class OpinionDialog extends Component {
@@ -71,11 +82,17 @@ class OpinionDialog extends Component {
 		} = this.props;
 
 		const dialogMarkup = loading ? (
-			<CircularProgress size={200} />
+			<div className={classes.spinnerDiv}>
+				<CircularProgress size={200} thickness={2} />
+			</div>
 		) : (
 			<Grid container spacing={16}>
 				<Grid item sm={5}>
-					<img src={userImage} alt='Profile' className={classes.profileImage} />
+					<img
+						src={userImage}
+						alt='Profile'
+						className={classes.profileImage}
+					/>
 				</Grid>
 				<Grid item sm={7}>
 					<Typography
@@ -92,6 +109,12 @@ class OpinionDialog extends Component {
 					</Typography>
 					<hr className={classes.invisibleSeparator} />
 					<Typography variant='body1'>{body}</Typography>
+					<LikeButton opinionId={opinionId} />
+					<span>{likeCount} Likes</span>
+					<MyButton tip='Comments'>
+						<ChatIcon color='primary' />
+					</MyButton>
+					<span>{commentCount} Comments</span>
 				</Grid>
 			</Grid>
 		);

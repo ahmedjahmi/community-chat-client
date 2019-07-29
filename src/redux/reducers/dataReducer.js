@@ -38,6 +38,9 @@ export default function(state = initialState, action) {
 				opinion => opinion.opinionId === action.payload.opinionId
 			);
 			state.opinions[index] = action.payload;
+			if (state.opinion.opinionId === action.payload.opinionId) {
+				state.opinion = action.payload
+			}
 			return {
 				...state
 			};
