@@ -4,6 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 
 // redux stuff
 import { connect } from 'react-redux';
-import { getOpinion } from '../../redux/actions/dataActions';
+import { getOpinion, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = {
 	invisibleSeparator: {
@@ -69,6 +70,7 @@ class OpinionDialog extends Component {
 
 	handleClose = () => {
 		this.setState({ open: false });
+		this.props.clearErrors();
 	};
 
 	render() {
@@ -123,6 +125,7 @@ class OpinionDialog extends Component {
 					<span>{commentCount} Comments</span>
 				</Grid>
 				<hr className={classes.visibleSeparator} />
+				<CommentForm opinionId={opinionId} />
 				<Comments comments={comments} />
 			</Grid>
 		);
@@ -159,6 +162,7 @@ class OpinionDialog extends Component {
 }
 
 OpinionDialog.propTypes = {
+	clearErrors: PropTypes.func.isRequired,
 	getOpinion: PropTypes.func.isRequired,
 	opinionId: PropTypes.string.isRequired,
 	userHandle: PropTypes.string.isRequired,
@@ -172,7 +176,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-	getOpinion
+	getOpinion,
+	clearErrors
 };
 
 export default connect(

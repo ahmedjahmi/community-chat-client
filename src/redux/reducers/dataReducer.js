@@ -5,7 +5,8 @@ import {
 	LIKE_OPINION,
 	UNLIKE_OPINION,
 	DELETE_OPINION,
-	LOADING_DATA
+	LOADING_DATA,
+	SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -59,6 +60,14 @@ export default function(state = initialState, action) {
 					action.payload,
 					...state.opinions
 				]
+			}
+		case SUBMIT_COMMENT:
+			return {
+				...state,
+				opinion: {
+					...state.opinion,
+					comments: [action.payload, ...state.opinion.comments]
+				}
 			}
 		default:
 			return state;

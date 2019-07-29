@@ -9,7 +9,8 @@ import {
 	STOP_LOADING_UI,
 	SET_ERRORS,
 	CLEAR_ERRORS,
-	SET_OPINION
+	SET_OPINION,
+	SUBMIT_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -55,7 +56,7 @@ export const postOpinion = (newOpinion) => (dispatch) => {
 				type: POST_OPINION,
 				payload: res.data
 			});
-			dispatch({ type: CLEAR_ERRORS });
+			dispatch(clearErrors());
 		})
 		.catch(err => {
 			dispatch({
@@ -90,6 +91,20 @@ export const unlikeOpinion = opinionId => dispatch => {
 		})
 		.catch(err => console.log(err));
 };
+
+export const submitComment = (opinionId, commentData) => dispatch => {
+	axios.post(`/opinion/${opinionId}/comment`, commentData)
+		.then(res => {
+			dispatch({type: SUBMIT_COMMENT, payload: res.data});
+			dispatch(clearErrors());
+		})
+		.catch(err => {
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data
+			})
+		})
+}
 
 export const deleteOpinion = opinionId => dispatch => {
 	axios
