@@ -9,7 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Menu';
+import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 
 // icons
@@ -71,7 +71,7 @@ class Notifications extends Component {
 		let notificationsMarkup =
 			notifications && notifications.length > 0 ? (
 				notifications.map(noti => {
-					const verb = noti.type === 'like' ? 'liked' : 'commented on';
+					const verb = noti.type === 'like' ? 'liked ' : 'commented on ';
 					const time = dayjs(noti.createdAt).fromNow();
 					const iconColor = noti.read ? 'primary' : 'secondary';
 					const icon =
