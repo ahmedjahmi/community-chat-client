@@ -89,7 +89,7 @@ class Opinion extends Component {
 						<ChatIcon color='primary' />
 					</MyButton>
 					<span>{commentCount} Comments</span>
-					<OpinionDialog opinionId={opinionId} userHandle={userHandle} />
+					<OpinionDialog opinionId={opinionId} userHandle={userHandle} openDialog={this.props.openDialog} />
 				</CardContent>
 			</Card>
 		);
@@ -99,7 +99,8 @@ class Opinion extends Component {
 Opinion.propTypes = {
 	user: PropTypes.object.isRequired,
 	opinion: PropTypes.object.isRequired,
-	classes: PropTypes.object.isRequired
+	classes: PropTypes.object.isRequired,
+	openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

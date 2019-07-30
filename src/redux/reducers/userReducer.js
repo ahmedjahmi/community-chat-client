@@ -5,6 +5,7 @@ import {
 	LOADING_USER,
 	LIKE_OPINION,
 	UNLIKE_OPINION,
+	MARK_NOTIFICATIONS_READ,
 	CLEAR_ERRORS,
 	SET_ERRORS,
 	LOADING_UI
@@ -56,6 +57,11 @@ export default function(state = initialState, action) {
 					like => like.opinionId !== action.payload.opinionId
 				)
 			};
+		case MARK_NOTIFICATIONS_READ:
+			state.notifications.forEach(noti => noti.read = true);
+			return {
+				...state
+			}
 		default:
 			return state;
 	}
