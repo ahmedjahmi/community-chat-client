@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Profile from '../components/profile/Profile';
 import Opinion from '../components/opinion/Opinion';
+import OpinionSkeleton from '../util/OpinionSkeleton';
 
 import { connect } from 'react-redux';
 import { getOpinions } from '../redux/actions/dataActions';
@@ -19,7 +20,7 @@ class home extends Component {
 				<Opinion key={opinion.opinionId} opinion={opinion} />
 			))
 		) : (
-			<p>Loading...</p>
+			<OpinionSkeleton />
 		);
 		return (
 			<Grid container spacing={2}>

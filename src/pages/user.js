@@ -5,6 +5,8 @@ import Opinion from '../components/opinion/Opinion';
 import StaticProfile from '../components/profile/StaticProfile';
 import Grid from '@material-ui/core/Grid';
 
+import OpinionSkeleton from '../util/OpinionSkeleton';
+
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
 
@@ -39,7 +41,7 @@ class user extends Component {
 		const { opinionIdParam } = this.state;
 
 		const opinionsMarkup = loading ? (
-			<p>loading data...</p>
+			<OpinionSkeleton />
 		) : opinions === null ? (
 			<p>No opinions from this user...</p>
 		) : !opinionIdParam ? (
