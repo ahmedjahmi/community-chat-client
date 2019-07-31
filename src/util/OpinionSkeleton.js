@@ -26,25 +26,25 @@ const styles = {
 	handle: {
 		width: 60,
 		height: 18,
-		backgroundColor: 'rgba(3, 169, 244, 1)',
+		backgroundColor: 'rgba(3, 169, 244, 0.2)',
 		marginBottom: 7
 	},
 	date: {
 		height: 14,
 		width: 100,
-		backgroundColor: 'rgba(0,0,0, 0.3)',
+		backgroundColor: 'rgba(0,0,0, 0.2)',
 		marginBottom: 10
 	},
 	fullLine: {
 		height: 15,
 		width: '300%',
-		backgroundColor: 'rgba(0,0,0, 0.3)',
+		backgroundColor: 'rgba(0,0,0, 0.2)',
 		marginBottom: 10
 	},
 	halfLine: {
 		height: 15,
 		width: '100%',
-		backgroundColor: 'rgba(0,0,0, 0.3)',
+		backgroundColor: 'rgba(0,0,0, 0.2)',
 		marginBottom: 10
 	}
 };

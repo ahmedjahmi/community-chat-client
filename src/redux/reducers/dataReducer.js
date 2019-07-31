@@ -46,12 +46,12 @@ export default function(state = initialState, action) {
 				...state
 			};
 		case DELETE_OPINION:
-			index = state.opinions.findIndex(
+			let deleteIndex = state.opinions.findIndex(
 				opinion => opinion.opinionId === action.payload
 			);
-			state.opinions.splice(index, 1);
+			state.opinions.splice(deleteIndex, 1);
 			return {
-                ...state
+				...state
 			};
 		case POST_OPINION:
 			return {

@@ -35,6 +35,7 @@ class DeleteOpinion extends Component {
 	deleteOpinion = () => {
         this.props.deleteOpinion(this.props.opinionId);
 		this.setState({ open: false });
+		console.log(this.state);
 	};
 	render() {
 		const { classes } = this.props;
