@@ -38,6 +38,9 @@ const theme = createMuiTheme({
 	}
 });
 
+axios.defaults.baseURL =
+	'https://us-central1-communitychat-db8a1.cloudfunctions.net/api';
+
 const token = localStorage.FBIdToken;
 if (token) {
 	const decodedToken = jwtDecode(token);
